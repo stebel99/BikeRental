@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BikeRental.API.Data;
 using BikeRental.API.Models;
+using BikeRental.API.Repository;
 
 namespace BikeRental.API.Controllers
 {
@@ -14,25 +15,24 @@ namespace BikeRental.API.Controllers
     [ApiController]
     public class BikeController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IBikeRepository _repository;
 
-        public BikeController(DataContext context)
+        public BikeController(IBikeRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
-
         // GET: api/Bike
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bike>>> GetBikes()
+        public ActionResult<IEnumerable<Bike>> GetBikes()
         {
-            return await _context.Bikes.ToListAsync();
+            return Ok(_repository.GetBikes());
         }
 
         // GET: api/Bike/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Bike>> GetBike(Guid id)
+        public ActionResult<Bike> GetBike(Guid id)
         {
-            var bike = await _context.Bikes.FindAsync(id);
+            var bike = _repository.GetBikeById(id);
 
             if (bike == null)
             {
@@ -46,22 +46,22 @@ namespace BikeRental.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBike(Guid id, Bike bike)
+        public IActionResult PutBike(Guid id, Bike bike)
         {
             if (id != bike.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(bike).State = EntityState.Modified;
+            _repository.UpdateBike(bike);
 
             try
             {
-                await _context.SaveChangesAsync();
+                _repository.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BikeExists(id))
+                if (!_repository.BikeExist(id))
                 {
                     return NotFound();
                 }
@@ -78,33 +78,29 @@ namespace BikeRental.API.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Bike>> PostBike(Bike bike)
+        public ActionResult<Bike> PostBike(Bike bike)
         {
-            _context.Bikes.Add(bike);
-            await _context.SaveChangesAsync();
+            bike.StatusId = 1; // Status available
+            _repository.InsertBike(bike);
+            _repository.Save();
 
             return CreatedAtAction("GetBike", new { id = bike.Id }, bike);
         }
 
         // DELETE: api/Bike/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Bike>> DeleteBike(Guid id)
+        public ActionResult<Bike> DeleteBike(Guid id)
         {
-            var bike = await _context.Bikes.FindAsync(id);
+            var bike = _repository.GetBikeById(id);
             if (bike == null)
             {
                 return NotFound();
             }
 
-            _context.Bikes.Remove(bike);
-            await _context.SaveChangesAsync();
+            _repository.DeleteBike(id);
+            _repository.Save();
 
             return bike;
-        }
-
-        private bool BikeExists(Guid id)
-        {
-            return _context.Bikes.Any(e => e.Id == id);
         }
     }
 }

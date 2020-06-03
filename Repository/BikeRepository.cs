@@ -51,7 +51,10 @@ namespace BikeRental.API.Repository
 
         public IEnumerable<Bike> GetBikes()
         {
-            return _context.Bikes.ToList();
+            return _context.Bikes
+                .Include(x=>x.Status)
+                .Include(y=>y.Type)
+                .ToList();
         }
 
         public void InsertBike(Bike bike)
@@ -67,6 +70,11 @@ namespace BikeRental.API.Repository
         public void UpdateBike(Bike bike)
         {
             _context.Entry(bike).State = EntityState.Modified;
+        }
+
+        public bool BikeExist(Guid bikeId)
+        {
+            return _context.Bikes.Any(x => x.Id == bikeId);
         }
     }
 }

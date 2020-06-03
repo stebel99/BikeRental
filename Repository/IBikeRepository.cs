@@ -12,5 +12,6 @@ namespace BikeRental.API.Repository
         void DeleteBike(Guid bikeId);
         void UpdateBike(Bike bike);
         void Save();
+        bool BikeExist(Guid bikeId);
     }
 }
