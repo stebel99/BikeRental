@@ -27,6 +27,7 @@ namespace BikeRental.API
             );
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IBikeRepository, BikeRepository>();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +37,7 @@ namespace BikeRental.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
 
             app.UseRouting();
