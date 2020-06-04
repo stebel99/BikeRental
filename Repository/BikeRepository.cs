@@ -1,13 +1,9 @@
 ﻿using BikeRental.API.Data;
 using BikeRental.API.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 
 namespace BikeRental.API.Repository
 {
