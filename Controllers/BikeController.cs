@@ -48,11 +48,11 @@ namespace BikeRental.API.Controllers
         [HttpPut("{id}")]
         public IActionResult PutBike(Guid id, Bike bike)
         {
-            if (id != bike.Id)
+            if (!_repository.BikeExist(id))
             {
-                return BadRequest();
+                return NotFound();
             }
-
+            bike.Id = id;
             _repository.UpdateBike(bike);
 
             try

@@ -1,10 +1,12 @@
 ﻿using BikeRental.API.Data;
 using BikeRental.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace BikeRental.API.Repository
@@ -46,14 +48,17 @@ namespace BikeRental.API.Repository
 
         public Bike GetBikeById(Guid bikeId)
         {
-            return _context.Bikes.Find(bikeId);
+            var result = _context.Bikes.Find(bikeId);
+            result.Status = result == null ? null : _context.Statuses.Find(result?.StatusId);
+            result.Type = result == null ? null : _context.Types.Find(result?.TypeId);
+            return result;
         }
 
         public IEnumerable<Bike> GetBikes()
         {
             return _context.Bikes
-                .Include(x=>x.Status)
-                .Include(y=>y.Type)
+                .Include(x => x.Status)
+                .Include(y => y.Type)
                 .ToList();
         }
 
