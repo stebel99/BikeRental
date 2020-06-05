@@ -1,1 +1,5 @@
-<button class="btn btn-info"> Дороу</button>
+<p *ngFor="let value of values" class="list-group alert-danger">
+  {{value.id}} , {{value.name}}
+  {{value.type.name}}
+</p>
+<button class="btn btn-danger">Test</button>
