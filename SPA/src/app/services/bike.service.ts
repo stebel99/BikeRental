@@ -5,7 +5,7 @@ import { Bike } from '../interfaces/bike';
 @Injectable()
 export class BikeService {
 
-  private url = "/api/bike";
+  private url = "https://localhost:44334/api/bike";
 
   constructor(private http: HttpClient) {
   }

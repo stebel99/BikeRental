@@ -1,26 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
+import { BikeService } from '../services/bike.service';
+import { Bike } from '../interfaces/bike';
 
 @Component({
   selector: 'app-bike',
   templateUrl: './bike.component.html',
-  styleUrls: ['./bike.component.css']
+  styleUrls: ['./bike.component.css'],
+  providers: [BikeService]
 })
 export class BikeComponent implements OnInit {
   values: any;
-
-  constructor(private http: HttpClient) { }
+  bikes: Bike[];
+  constructor(private bikeService: BikeService) { }
 
   ngOnInit() {
     this.getValues();
   }
 
   getValues() {
-    this.http.get('https://localhost:44334/api/bike').subscribe(response => {
-      this.values = response;
-    }, error => {
-      console.log(error);
-    });
+    this.bikeService.getBikes()
+      .subscribe((data: Bike[]) => this.bikes = data);
   }
 }
