@@ -23,7 +23,7 @@
       <input type="number" [(ngModel)]="bike.price" class="form-control" />
     </div>
     <div class="form-group col-2 submit-rent">
-      <input type="button" value="Submit rent" class=" btn btn-success form-control" />
+      <input type="button" value="Submit rent" (click)="onCreate()" class="btn btn-success form-control" />
     </div>
   </div>
 </div>

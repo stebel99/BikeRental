@@ -25,6 +25,12 @@ export class BikeComponent implements OnInit {
     this.getTypes();
   }
 
+  onCreate() {
+    this.bikeService.createBike(this.bike)
+      .subscribe((data: Bike) => this.bikes.push(data));
+  }
+
+
   getBikes() {
     this.bikeService.getBikes()
       .subscribe((data: Bike[]) => this.bikes = data);
