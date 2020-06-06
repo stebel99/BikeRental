@@ -9,16 +9,20 @@ import { Bike } from '../interfaces/bike';
   providers: [BikeService]
 })
 export class BikeComponent implements OnInit {
-  values: any;
+
   bikes: Bike[];
+  bike: Bike = new Bike();
+
   constructor(private bikeService: BikeService) { }
 
   ngOnInit() {
-    this.getValues();
+    this.getBikes();
   }
 
-  getValues() {
+  getBikes() {
     this.bikeService.getBikes()
       .subscribe((data: Bike[]) => this.bikes = data);
   }
+
+
 }

@@ -5,9 +5,7 @@ export class Bike {
     public price?: number,
 
     public statusId?: number,
-    public statusName?: string,
 
     public typeId?: number,
-    public typeName?: string
   ) { }
 }

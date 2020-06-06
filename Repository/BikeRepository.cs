@@ -77,5 +77,14 @@ namespace BikeRental.API.Repository
         {
             return _context.Bikes.Any(x => x.Id == bikeId);
         }
+
+        public IEnumerable<Status> GetStatuses()
+        {
+            return _context.Statuses.ToList();
+        }
+        public IEnumerable<Models.Type> GetTypes()
+        {
+            return _context.Types.ToList();
+        }
     }
 }

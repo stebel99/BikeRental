@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BikeRental.API.Models;
 using BikeRental.API.Repository;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BikeRental.API.Controllers
 {
@@ -97,6 +98,20 @@ namespace BikeRental.API.Controllers
             _repository.Save();
 
             return bike;
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult<IEnumerable<Models.Type>> GetTypes()
+        {
+            return Ok(_repository.GetTypes());
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public ActionResult<IEnumerable<Status>> GetStatuses()
+        {
+            return Ok(_repository.GetStatuses());
         }
     }
 }
