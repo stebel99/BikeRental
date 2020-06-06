@@ -29,4 +29,12 @@ export class BikeService {
   deleteBike(id: string) {
     return this.http.delete(this.url + '/' + id);
   }
+
+  getTypes() {
+    return this.http.get(this.url + '/gettypes');
+  }
+
+  getStatuses() {
+    return this.http.get(this.url + '/getstatuses');
+  }
 }
