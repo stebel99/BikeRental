@@ -5,21 +5,25 @@
   <div class="topic-name">
     <h5>🤑 Create new rent</h5>
   </div>
-  <div>
-    <div class="form-group">
-      <label>Name</label>
-      <input type="text" [(ngModel)]="bike.name" class="form-control" />
+  <div class="row form">
+    <div class="form-group col-4">
+      <label class="label">Bike name</label>
+      <input type="text" [(ngModel)]="bike.name" class="form-control" placeholder="Ex. Superfast bike" />
     </div>
-    <div class="form-group">
-      <label>Type</label>
-      <input type="number" [(ngModel)]="bike.type" class="form-control" />
+    <div class="form-group col-4">
+        <label class="label">Bike type</label>
+        <select [(ngModel)]="bike.typeId" name="type" class="form-control">
+          <option *ngFor="let type of types" [value]="type?.id" >
+            {{type?.name}}
+          </option>
+        </select>
     </div>
-    <div class="form-group">
-      <label>Price</label>
+    <div class="form-group col-2">
+      <label class="label">Rent price</label>
       <input type="number" [(ngModel)]="bike.price" class="form-control" />
     </div>
-    <div>
-      <input type="button" value="Submit" class="btn btn-success" />
+    <div class="form-group col-2 submit-rent">
+      <input type="button" value="Submit rent" class=" btn btn-success form-control" />
     </div>
   </div>
 </div>

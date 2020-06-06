@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BikeService } from '../services/bike.service';
 import { Bike } from '../interfaces/bike';
+import { Type } from '../interfaces/type';
+import { Status } from '../interfaces/status';
 
 @Component({
   selector: 'app-bike',
@@ -10,6 +12,8 @@ import { Bike } from '../interfaces/bike';
 })
 export class BikeComponent implements OnInit {
 
+  statuses: Status[];
+  types: Type[];
   bikes: Bike[];
   bike: Bike = new Bike();
 
@@ -17,12 +21,21 @@ export class BikeComponent implements OnInit {
 
   ngOnInit() {
     this.getBikes();
+    this.getStatuses();
+    this.getTypes();
   }
 
   getBikes() {
     this.bikeService.getBikes()
       .subscribe((data: Bike[]) => this.bikes = data);
   }
-
+  getStatuses() {
+    this.bikeService.getStatuses()
+      .subscribe((data: Status[]) => this.statuses = data);
+  }
+  getTypes() {
+    this.bikeService.getTypes()
+      .subscribe((data: Type[]) => this.types = data);
+  }
 
 }

@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BikeComponent } from './bike/bike.component';
 import { FormsModule } from '@angular/forms';
-import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
