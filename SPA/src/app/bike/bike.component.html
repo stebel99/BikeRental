@@ -30,7 +30,7 @@
     <div class="topic-name">
       <h5>🤩 Your rent (Total: ${{totalPrice | number: '1.0-2'}})</h5>
     </div>
-    <div *ngIf="rentBikes.length != 0" ngFor="let bike of rentBikes">
+    <div *ngFor="let bike of rentBikes">
       <div class="row form-white">
         <div class="col-10 detail">
           {{bike.name}} / {{bike.type.name}} / ${{bike.price}}
@@ -44,8 +44,25 @@
       <h5>☹️ You have not rented a bike yet</h5>
     </div>
   </div>
-  <div class="topic-name">
-    <h5>🚲 Available bicycles ({{totalNumberAvailableBikes}})</h5>
+  <div>
+    <div class="topic-name">
+      <h5>🚲 Available bicycles ({{totalNumberAvailableBikes}})</h5>
+    </div>
+    <div *ngFor="let bike of availableBikes">
+      <div class="row form-white">
+        <div class="col-8 detail">
+          {{bike.name}} / {{bike.type?.name}} / ${{bike.price}}
+        </div>
+        <div class="col-2">
+          <input type="button" value="Rent" (click)="confirmRent(bike)" class="btn btn-primary form-control" />
+        </div>
+        <div class="col-2">
+          <input type="button" value="Delete" (click)="deleteBike(bike)" class="btn btn-danger form-control" />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="availableBikes.length == 0" class="topic-name">
+      <h5>☹️ No bicycles to rent</h5>
+    </div>
   </div>
-
 </div>

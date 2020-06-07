@@ -30,10 +30,21 @@ export class BikeComponent implements OnInit {
     }
   }
 
+  deleteBike(b: Bike) {
+    this.bikeService.deleteBike(b.id)
+      .subscribe(data => console.log("Deleted"));
+  }
+
+  confirmRent(b: Bike) {
+    b.statusId = 2;
+    this.bikeService.updateBike(b)
+      .subscribe(result => console.log("Confirmed"));
+  }
+
   cancelRent(b: Bike) {
     b.statusId = 1;
     this.bikeService.updateBike(b)
-      .subscribe(result => console.log("Updated"));
+      .subscribe(result => console.log("Canceled"));
   }
   onCreate() {
     this.bikeService.createBike(this.bike)
@@ -50,7 +61,7 @@ export class BikeComponent implements OnInit {
             this.rentBikes.push(data[i]);
             this.totalPrice += data[i].price;
           }
-          else {
+          else if (data[i].statusId == 1){
             this.availableBikes.push(data[i]);
             this.totalNumberAvailableBikes += 1;
           }
