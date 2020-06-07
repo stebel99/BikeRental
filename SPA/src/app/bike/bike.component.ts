@@ -12,16 +12,28 @@ import { Status } from '../interfaces/status';
 })
 export class BikeComponent implements OnInit {
   statuses: Status[];
-  rentBikes: Bike[] = [];
+  rentBikes: Bike[];
   types: Type[];
-  availableBikes: Bike[] = [];
-  bike: Bike = new Bike();
-  totalPrice: number = 0;
-  totalNumberAvailableBikes: number = 0;
+  availableBikes: Bike[];
+  bike: Bike;
+  totalPrice: number;
+  totalNumberAvailableBikes: number;
+
 
   constructor(private bikeService: BikeService) { }
 
+  private clearAll() {
+    this.statuses = [];
+    this.rentBikes = [];
+    this.types = [];
+    this.availableBikes = [];
+    this.cancel();
+    this.totalNumberAvailableBikes = 0;
+    this.totalPrice = 0;
+  }
+
   ngOnInit() {
+    this.clearAll();
     this.getBikes();
     this.getStatuses();
     this.getTypes();
@@ -32,26 +44,36 @@ export class BikeComponent implements OnInit {
 
   deleteBike(b: Bike) {
     this.bikeService.deleteBike(b.id)
-      .subscribe(data => console.log("Deleted"));
+      .subscribe(data => {
+        console.log("Deleted");
+        this.ngOnInit();
+      });
   }
 
   confirmRent(b: Bike) {
     b.statusId = 2;
     this.bikeService.updateBike(b)
-      .subscribe(result => console.log("Confirmed"));
+      .subscribe(result => {
+        console.log("Confirmed");
+        this.ngOnInit();
+      });
   }
 
   cancelRent(b: Bike) {
     b.statusId = 1;
     this.bikeService.updateBike(b)
-      .subscribe(result => console.log("Canceled"));
+      .subscribe(result => {
+        console.log("Canceled");
+        this.ngOnInit();
+      });
   }
   onCreate() {
     this.bikeService.createBike(this.bike)
-      .subscribe((data: Bike) => this.availableBikes.push(data));
-    this.cancel();
+      .subscribe((data: Bike) => {
+        this.availableBikes.push(data);
+        this.ngOnInit();
+      });
   }
-
 
   getBikes() {
     this.bikeService.getBikes()
@@ -80,5 +102,4 @@ export class BikeComponent implements OnInit {
   cancel() {
     this.bike = new Bike();
   }
-
 }
