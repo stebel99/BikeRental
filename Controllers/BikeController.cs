@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BikeRental.API.Models;
 using BikeRental.API.Repository;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BikeRental.API.Controllers
 {
