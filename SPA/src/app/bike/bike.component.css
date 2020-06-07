@@ -25,7 +25,7 @@ input,select,option{
     height:38px;
 }
 
-.form {
+.form, .form-white {
   background-color: #eaebef;
   margin-top: 20px;
   padding:10px;
@@ -34,11 +34,27 @@ input,select,option{
   border-style:solid;
 }
 
+.form-white{
+    background-color:white;
+}
+
+
 .submit-rent{
     padding-top:31px;
+}
+
+.btn-danger{
+    font-size:12px;
 }
 
 .btn-success {
   background-color: #1ebc9a;
   font-size:12px;
 }
+
+.detail{
+    padding:6px;
+    font-size:16px;
+    padding-left:12px;
+}
+

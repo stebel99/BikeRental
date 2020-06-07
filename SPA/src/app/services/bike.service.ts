@@ -22,8 +22,8 @@ export class BikeService {
     return this.http.post(this.url, bike);
   }
 
-  updateBike(bike: Bike, id: string) {
-    return this.http.put(this.url + '/' + id, bike);
+  updateBike(bike: Bike) {
+    return this.http.put<Bike>(this.url, bike);
   }
 
   deleteBike(id: string) {

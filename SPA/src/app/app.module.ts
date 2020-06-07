@@ -20,6 +20,6 @@ import { FormsModule } from '@angular/forms';
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, BikeComponent]
 })
 export class AppModule { }

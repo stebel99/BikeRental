@@ -42,14 +42,13 @@ namespace BikeRental.API.Controllers
         // PUT: api/Bike/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public IActionResult PutBike(Guid id, Bike bike)
+        [HttpPut]
+        public IActionResult PutBike(Bike bike)
         {
-            if (!_repository.BikeExist(id))
+            if (!_repository.BikeExist(bike.Id))
             {
                 return NotFound();
             }
-            bike.Id = id;
             _repository.UpdateBike(bike);
 
             try
@@ -58,7 +57,7 @@ namespace BikeRental.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_repository.BikeExist(id))
+                if (!_repository.BikeExist(bike.Id))
                 {
                     return NotFound();
                 }
